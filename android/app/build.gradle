@@ -88,6 +88,14 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
     }
+    signingConfigs {
+        debug {
+            storeFile file("my-release-key.keystore")
+            storePassword "test123"
+            keyAlias "my-key-alias"
+            keyPassword "test123"
+        }
+    }
     splits {
         abi {
             enable enableSeparateBuildPerCPUArchitecture
@@ -100,6 +108,9 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
     // applicationVariants are e.g. debug, release
@@ -121,4 +132,6 @@ dependencies {
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:0.19.+"
+    compile "com.google.android.gms:play-services-maps:8.1.0"    
+    compile project(':react-native-maps')
 }
